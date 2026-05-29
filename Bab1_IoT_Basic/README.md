@@ -1,42 +1,34 @@
-# Bab 1: IoT Basic (Blink Test)
+# Bab 1: Pengenalan Mikrokontroler IoT (ESP8266)
 
-Selamat datang di modul **Bab 1: IoT Basic**. Pada bab ini, kita akan mempelajari konsep dasar *Input/Output* (I/O) digital pada perangkat microcontroller serta cara melakukan pengujian awal menggunakan program **Blink**.
+Modul ini membahas dasar-dasar penggunaan modul Wi-Fi ESP8266 (WeMos D1 R2) untuk pengembangan proyek Internet of Things (IoT).
 
----
+## 🎯 Tujuan Pembelajaran
+- Memahami arsitektur pin GPIO pada WeMos D1 R2.
+- Mengonfigurasi Arduino IDE untuk mendukung board ESP8266.
+- Memahami struktur dasar kode Arduino (`setup()` dan `loop()`).
+- Menguji konektivitas dasar dengan program *Blink* (LED internal).
 
-## 📋 Deskripsi Proyek
-Proyek ini dirancang untuk memastikan bahwa lingkungan pengembangan (Arduino IDE), driver board microcontroller (seperti Arduino Uno, NodeMCU, atau WeMos D1 R2/Mini), serta kabel data berfungsi dengan baik. Kami menggunakan LED bawaan (*built-in LED*) untuk meminimalkan kebutuhan komponen tambahan di tahap pengujian awal ini.
+## ⚙️ Persiapan
+1. **Board Manager:** Pastikan URL berikut sudah ditambahkan di `File > Preferences`:
+   `http://arduino.esp8266.com/stable/package_esp8266com_index.json`
+2. **Library:** Tidak diperlukan library tambahan untuk tes dasar ini.
 
-## 🛠️ Komponen yang Dibutuhkan
-1. **Microcontroller Board** (Arduino Uno / NodeMCU ESP8266 / WeMos D1)
-2. **Kabel USB Data** (sesuai tipe interface board)
-3. **Komputer/Laptop** dengan Arduino IDE yang sudah terinstal
+## 🔌 Pinout Dasar (WeMos D1 R2)
+- **Pin D4:** Terhubung langsung ke LED internal (Built-in LED).
+- **Pin 5V/3V3:** Sumber daya (Pastikan voltase sesuai dengan kebutuhan sensor).
+- **Pin GND:** Ground.
 
----
+## 💻 Contoh Kode (Blink Test)
+Berikut adalah kode untuk mengetes apakah ESP8266 Anda berfungsi:
 
-## 🔌 Diagram Pengkabelan (Wiring)
-Berikut adalah referensi diagram pemasangan komponen untuk uji coba menggunakan LED eksternal (opsional):
+```cpp
+void setup() {
+  pinMode(D4, OUTPUT); // Mengatur pin D4 sebagai output
+}
 
-![Wiring Diagram](images/wiring_diagram.jpg)
-
-> [!NOTE]
-> Jika menggunakan LED eksternal, pastikan untuk menggunakan resistor pembatas arus (resistor $220\Omega$ - $330\Omega$) agar LED tidak rusak akibat kelebihan tegangan/arus.
-
----
-
-## 💻 Langkah-Langkah Uji Coba
-
-1. **Persiapan Perangkat**:
-   Hubungkan microcontroller Anda ke port USB komputer menggunakan kabel data.
-2. **Konfigurasi Arduino IDE**:
-   - Buka file `src/blink_test.ino` menggunakan Arduino IDE.
-   - Masuk ke menu **Tools** -> **Board**, pilih board yang sesuai dengan perangkat Anda (misal: *Arduino Uno* atau *Generic ESP8266 Module*).
-   - Pilih port komunikasi yang sesuai di bawah menu **Tools** -> **Port**.
-3. **Upload Kode**:
-   Klik tombol **Upload** (ikon panah kanan) pada Arduino IDE dan tunggu hingga status berubah menjadi *Done uploading*.
-4. **Verifikasi**:
-   Perhatikan LED internal pada board Anda. Jika LED berkedip hidup dan mati dengan interval 1 detik, maka langkah uji coba berhasil!
-
----
-
-*Pusat Studi Multimedia & Robotika (PSMURO) - Universitas Gunadarma*
+void loop() {
+  digitalWrite(D4, LOW);  // LED Nyala (Aktif Low pada beberapa board)
+  delay(1000);            // Tunggu 1 detik
+  digitalWrite(D4, HIGH); // LED Mati
+  delay(1000);            // Tunggu 1 detik
+}
